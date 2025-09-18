@@ -14,6 +14,7 @@ import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
+import { FaDog, FaHospital } from 'react-icons/fa';
 
 function Login() {
   const [count, setCount] = useState(0)
@@ -40,7 +41,7 @@ function Login() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(181deg, #6a8ec854 1.01%, #0498d31c 97.13%), #fff',
+        //background: 'linear-gradient(181deg, #6a8ec854 1.01%, #0498d31c 97.13%), #fff',
       }}
     >
       {showAlert && (
@@ -62,7 +63,7 @@ function Login() {
       <Grid
         container
         rowSpacing={4}
-        spacing={4}
+        pacing={4}
         columnSpacing={{ xs: 4, sm: 4, md: 4 }}
         sx={{
           justifyContent: 'center',
@@ -99,7 +100,10 @@ function Login() {
         </Grid>
 
         <Grid size={{ xs: 4, sm: 3, md: 2 }}>
-          <img src={viteLogo} alt="Logo SI" width="100%" height="100%" />
+          <Box display="flex" alignItems="center" gap={2} mb={3}>
+            <FaDog size={100} />
+            <FaHospital size={100} />
+          </Box>
         </Grid>
         <Grid size={{ xs: 3, sm: 3, md: 3 }}>
           <svg
