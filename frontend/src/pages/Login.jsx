@@ -27,7 +27,8 @@ function Login() {
   const {t, i18n} = useTranslation();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (event) => {
+    event.preventDefault(); // Evita el reload
     navigate('/Dashboard')
   };
   return (
