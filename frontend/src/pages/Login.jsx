@@ -137,7 +137,7 @@ function Login() {
         <form onSubmit={handleLogin}>
           <TextField
             fullWidth
-            label={'Usuario o Contraseña'}
+            label={'Usuario'}
             variant="filled"
             value={usuario}
             onChange={(e) => setUsuario(e.target.value)}
