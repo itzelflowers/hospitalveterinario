@@ -8,9 +8,9 @@ export default function Index() {
     const [tab, setTab] = useState(0);
 
 
-const handleChange = (event, newValue) => {
-setTab(newValue);
-};
+    const handleChange = (event, newValue) => {
+    setTab(newValue);
+    };
   return (
     <Box sx={{ flexGrow: 1 }}>
 {/* Navigation Bar */}

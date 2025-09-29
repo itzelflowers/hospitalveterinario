@@ -41,6 +41,7 @@ function Login() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        padding:0
         //background: 'linear-gradient(181deg, #6a8ec854 1.01%, #0498d31c 97.13%), #fff',
       }}
     >
@@ -63,7 +64,7 @@ function Login() {
       <Grid
         container
         rowSpacing={4}
-        pacing={4}
+        pacing={3}
         columnSpacing={{ xs: 4, sm: 4, md: 4 }}
         sx={{
           justifyContent: 'center',
