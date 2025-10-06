@@ -2,5 +2,28 @@
     "auth": {
         "user": "Usuario",
         "pass": "Password"
+    },
+    "carousel": {
+        "aboutTitle": "Conócenos",
+        "aboutContent": "Somos un hospital veterinario dedicado al bienestar animal, con un equipo profesional y atención personalizada para cada mascota y familia.",
+        "missionTitle": "Misión",
+        "missionContent": "Brindar atención médica integral, ética y profesional a las mascotas, promoviendo su bienestar y el de sus familias, con tecnología de vanguardia y un equipo humano comprometido.",
+        "visionTitle": "Visión",
+        "visionContent": "Ser el hospital veterinario líder en la región, reconocido por la excelencia en el cuidado animal, innovación y servicio al cliente.",
+        "servicesTitle": "Servicios",
+        "servicesContent":"Consulta general, cirugías, vacunación, laboratorio, estética y asesoría nutricional para mascotas."
+    
+    },
+    "register": {
+        "title": "Registro de Dueño 🐾",
+        "name": "Nombre",
+        "lastname": "Apellido",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "passwordConfirm": "Confirmar Contraseña",
+        "suggestPassword": "Recomendar contraseña segura",
+        "phone": "Teléfono",
+        "address": "Dirección",
+        "submit": "Registrar Dueño"
     }
 }

@@ -3,6 +3,9 @@ import { AlternateEmail, Pets, LanguageOutlined, ArrowBackIos, ArrowForwardIos }
 import {useNavigate} from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
+import zIndex from '@mui/material/styles/zIndex';
 export default function Register() {
   const initialState = {
     name: '',
@@ -124,23 +127,23 @@ export default function Register() {
             const sections = [
               {
                 key: 'about',
-                title: t('carousel.aboutTitle', 'Conócenos'),
-                content: t('carousel.aboutContent', 'Somos un hospital veterinario dedicado al bienestar animal, con un equipo profesional y atención personalizada para cada mascota y familia.'),
+                title: t('carousel.aboutTitle'),
+                content: t('carousel.aboutContent'),
               },
               {
                 key: 'mission',
-                title: t('carousel.missionTitle', 'Misión'),
-                content: t('carousel.missionContent', 'Brindar atención médica integral, ética y profesional a las mascotas, promoviendo su bienestar y el de sus familias, con tecnología de vanguardia y un equipo humano comprometido.'),
+                title: t('carousel.missionTitle'),
+                content: t('carousel.missionContent'),
               },
               {
                 key: 'vision',
-                title: t('carousel.visionTitle', 'Visión'),
-                content: t('carousel.visionContent', 'Ser el hospital veterinario líder en la región, reconocido por la excelencia en el cuidado animal, innovación y servicio al cliente.'),
+                title: t('carousel.visionTitle'),
+                content: t('carousel.visionContent', ''),
               },
               {
                 key: 'services',
-                title: t('carousel.servicesTitle', 'Servicios'),
-                content: t('carousel.servicesContent', 'Consulta general, cirugías, vacunación, laboratorio, estética y asesoría nutricional para mascotas.'),
+                title: t('carousel.servicesTitle'),
+                content: t('carousel.servicesContent'),
               },
             ];
             const [current, setCurrent] = React.useState(0);
@@ -189,12 +192,15 @@ export default function Register() {
             );
           })()}
           <Divider sx={{ my: 2, bgcolor: 'rgba(255,255,255,0.3)' }} />  
-          <Grid container spacing={2} alignItems="flex-start" justifyContent="center">
+          <Grid container spacing={2} 
+            alignItems="flex-start" justifyContent="center">
             <Grid item xs={12} md={1}></Grid>
             <Grid item xs={12} md={4}>
-            <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
+            <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off"
+            
+            sx={{background: 'rgba(255,255,255,0.5)', p:2, borderRadius:3}}>
               <Typography variant="h5" component="h2" gutterBottom align="center" color="primary" paddingTop={4 }>
-                {t('register.title', 'Registro de Dueño 🐾')}
+                {t('register.title')}
               </Typography>
               
                 <Grid container spacing={3}>
@@ -205,7 +211,7 @@ export default function Register() {
                       required
                       id="name"
                       name="name"
-                      label={t('register.name', 'Nombre')}
+                      label={t('register.name')}
                       value={formData.name}
                       onChange={handleChange}
                       error={!!errors.name}
@@ -219,7 +225,7 @@ export default function Register() {
                       required
                       id="lastname"
                       name="lastname"
-                      label={t('register.lastname', 'Apellidos')}
+                      label={t('register.lastname')}
                       value={formData.lastname}
                       onChange={handleChange}
                       error={!!errors.lastname}
@@ -232,7 +238,7 @@ export default function Register() {
                       size='small'
                       id="email"
                       name="email"
-                      label={t('register.email', 'Correo Electrónico')}
+                      label={t('register.email')}
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
@@ -253,7 +259,7 @@ export default function Register() {
                       size='small'
                       id="password"
                       name="password"
-                      label={t('register.password', 'Contraseña')}
+                      label={t('register.password')}
                       type="password"
                       value={formData.password}
                       onChange={handleChange}
@@ -267,17 +273,8 @@ export default function Register() {
                       sx={{ mt: 1 }}
                       onClick={handleGenerarPassword}
                     >
-                      {t('register.suggestPassword', 'Recomendar contraseña segura')}
+                      {t('register.suggestPassword')}
                     </Button>
-                    {
-                      sugerenciaPassword && (
-                        <Button
-                          variant="outlined"
-                          color="success"
-                          size="samall">
-                            limpiar sugerencia
-                          </Button>
-                    )}
                     
                     {sugerenciaPassword && (
                       <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
@@ -291,25 +288,33 @@ export default function Register() {
                       size='small'
                       id="passwordConfirm"
                       name="passwordConfirm"
-                      label={t('register.passwordConfirm', 'Confirmar Contraseña')}
+                      label={t('register.passwordConfirm')}
                       type="password"
                       value={formData.passwordConfirm}
                       onChange={handleChange}
                       error={!!errors.passwordConfirm}
                       helperText={errors.passwordConfirm}
                     />
+                    { sugerenciaPassword && (
+                        <Button
+                          variant="outlined"
+                          color="success"
+                          size="samall"                          
+                          sx={{ mt: 1 }}>
+                            limpiar sugerencia
+                          </Button>
+                    )}
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      size='small'
-                      id="phone"
+                    <PhoneInput
+                      defaultCountry="mx"
                       name="phone"
-                      label={t('register.phone', 'Teléfono')}
-                      type="tel"
+                      id="phone"
                       value={formData.phone}
-                      onChange={handleChange}
+                      sx={{ zIndex:9999999}}
+                      onChange={() => handleChange}
                     />
+                    
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -317,7 +322,7 @@ export default function Register() {
                       size='small'
                       id="address"
                       name="address"
-                      label={t('register.address', 'Dirección')}
+                      label={t('register.address')}
                       multiline
                       rows={3}
                       value={formData.address}
@@ -329,13 +334,12 @@ export default function Register() {
                       type="submit"
                       variant="contained"
                       color="primary"
-                      size="large"
                       fullWidth
                       size='small'
                       sx={{ mt: 2 }}
                       startIcon={<Pets />}
                     >
-                      {t('register.submit', 'Registrar Dueño')}
+                      {t('register.submit')}
                     </Button>
                   </Grid>
                 </Grid>
