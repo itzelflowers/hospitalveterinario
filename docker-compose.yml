@@ -17,13 +17,5 @@ services:
       - db_data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
 
-  web:
-    image: nginx:alpine
-    container_name: pawhospital_nginx
-    ports:
-      - "8080:80"  # Exponemos el puerto 80 del contenedor al puerto 8080 del host
-    volumes:
-      - ./build:/usr/share/nginx/html  # Montamos la carpeta build de React en Nginx
-
 volumes:
   db_data:
