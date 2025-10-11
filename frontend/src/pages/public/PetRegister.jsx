@@ -31,36 +31,35 @@ export default function PetRegister() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // Opciones
+  // Mapas de opciones
   const HAIR_TYPE_BY_SPECIES = {
-  Perro: [
-    'Pelo Corto',
-    'Pelo Mediano',
-    'Pelo Largo',
-    'Pelo Rizado',
-    'Pelo Duro (de alambre)',
-    'Pelo Liso',
-    'Sin Pelo',
-    'Doble Manto',
-  ],
-  Gato: [
-    'Pelo Corto',
-    'Pelo Semilargo',
-    'Pelo Largo',
-    'Pelo Rizado (Rex)',
-    'Sin Pelo',
-  ],
-  Roedor: [
-    'Pelo Corto',
-    'Pelo Largo (Angora)',
-    'Pelo Rizado (Rex)',
-    'Pelo Satinado (Brillante)',
-    'Sin Pelo',
-  ],
-  Ave: [
-    'Plumaje', // Las aves no tienen pelo
-  ],
-};
+    Perro: [
+      "Pelo Corto",
+      "Pelo Mediano",
+      "Pelo Largo",
+      "Pelo Rizado",
+      "Pelo Duro (de alambre)",
+      "Pelo Liso",
+      "Sin Pelo",
+      "Doble Manto",
+    ],
+    Gato: [
+      "Pelo Corto",
+      "Pelo Semilargo",
+      "Pelo Largo",
+      "Pelo Rizado (Rex)",
+      "Sin Pelo",
+    ],
+    Roedor: [
+      "Pelo Corto",
+      "Pelo Largo (Angora)",
+      "Pelo Rizado (Rex)",
+      "Pelo Satinado (Brillante)",
+      "Sin Pelo",
+    ],
+    Ave: ["Plumaje"], // Aves no tienen pelo
+  };
+
   const USOS = [
     "Mascota doméstica",
     "Mascota de asistencia médica",
@@ -68,46 +67,50 @@ export default function PetRegister() {
     "Mascota de protección",
     "Mascota de apoyo psiquiátrico",
   ];
-  const CHIP_TYPES = [
-    "FDX‑A (ISO 11784)",
-    "FDX‑B (ISO 11784/11785)",
-    "HDX",
-    "Otro",
-  ];
+  const CHIP_TYPES = ["FDX-A (ISO 11784)", "FDX-B (ISO 11784/11785)", "HDX", "Otro"];
   const SPECIES = ["Perro", "Gato", "Roedor", "Ave"];
 
   const BREEDS_BY_SPECIES = {
     Perro: [
-  'Mestizo', 'Affenpinscher', 'Afgano', 'Airedale Terrier', 'Akita Inu', 'Akita Americano','Alaskan Malamute', 'American Staffordshire Terrier', 'Antiguo Pastor Inglés (Bobtail)',
-  'Appenzeller', 'Australian Cattle Dog (Boyero Australiano)', 'Australian Shepherd', 'Azawakh','Basenji', 'Basset Hound', 'Beagle', 'Bearded Collie', 'Beauceron', 'Bedlington Terrier',
-  'Bernés de la Montaña', 'Bichón Frisé', 'Bichón Habanero', 'Bichón Maltés', 'Bloodhound','Border Collie', 'Border Terrier', 'Borzoi', 'Boston Terrier', 'Boxer', 'Braco Alemán',
-  'Braco de Weimar (Weimaraner)', 'Bull Terrier', 'Bulldog Francés', 'Bulldog Inglés','Bullmastiff', 'Cairn Terrier', 'Cane Corso', 'Caniche (Poodle)', 'Carlino (Pug)',
-  'Cavalier King Charles Spaniel', 'Chihuahua', 'Chow Chow', 'Cocker Spaniel Americano','Cocker Spaniel Inglés', 'Collie de Pelo Largo', 'Collie de Pelo Corto', 'Coton de Tuléar',
-  'Dachshund (Teckel)', 'Dálmata', 'Doberman', 'Dogo de Burdeos', 'Dogo Argentino','Dogo Alemán (Gran Danés)', 'Fila Brasileiro', 'Fox Terrier', 'Galgo Español',
-  'Galgo Inglés (Greyhound)', 'Galgo Italiano', 'Golden Retriever', 'Gordon Setter', 'Gran Pirineo','Grifón de Bruselas', 'Husky Siberiano', 'Jack Russell Terrier', 'Keeshond', 'Kerry Blue Terrier',
-  'Komondor', 'Labrador Retriever', 'Lakeland Terrier', 'Leonberger', 'Lhasa Apso','Malamute de Alaska', 'Mastín Inglés', 'Mastín Napolitano', 'Mastín del Pirineo', 'Mastín Tibetano',
-  'Münsterländer', 'Papillón', 'Pastor Alemán', 'Pastor Australiano', 'Pastor Belga','Pastor Blanco Suizo', 'Pastor de Anatolia', 'Pastor de Beauce (Beauceron)', 'Pastor de Brie',
-  'Pastor de los Pirineos', 'Pastor de Shetland (Sheltie)', 'Pekinés', 'Pembroke Welsh Corgi','Pequeño Lebrel Italiano', 'Perro de Agua Español', 'Perro de Agua Portugués', 'Perro Lobo Checo',
-  'Pinscher Miniatura', 'Pitbull Terrier Americano', 'Pointer Inglés', 'Pomerania', 'Presa Canario','Puli', 'Rhodesian Ridgeback', 'Rottweiler', 'Saluki', 'Samoyedo', 'San Bernardo',
-  'Schnauzer (Gigante, Estándar, Miniatura)', 'Scottish Terrier (Scottie)', 'Setter Irlandés','Shar Pei', 'Shiba Inu', 'Shih Tzu', 'Skye Terrier', 'Soft Coated Wheaten Terrier',
-  'Staffordshire Bull Terrier', 'Teckel (Dachshund)', 'Terranova', 'Terrier Australiano','Terrier Brasileño', 'Terrier Chileno', 'Terrier Escocés', 'Terrier Irlandés', 'Terrier Tibetano',
-  'Vizsla (Braco Húngaro)', 'Volpino Italiano', 'West Highland White Terrier (Westie)','Whippet', 'Xoloitzcuintle', 'Yorkshire Terrier', 'Otro'
-],
+      "Mestizo", "Affenpinscher", "Afgano", "Airedale Terrier", "Akita Inu", "Akita Americano","Alaskan Malamute",
+      "American Staffordshire Terrier", "Antiguo Pastor Inglés (Bobtail)", "Appenzeller", "Australian Cattle Dog (Boyero Australiano)",
+      "Australian Shepherd", "Azawakh","Basenji", "Basset Hound", "Beagle", "Bearded Collie", "Beauceron", "Bedlington Terrier",
+      "Bernés de la Montaña", "Bichón Frisé", "Bichón Habanero", "Bichón Maltés", "Bloodhound","Border Collie", "Border Terrier", "Borzoi",
+      "Boston Terrier", "Boxer", "Braco Alemán", "Braco de Weimar (Weimaraner)", "Bull Terrier", "Bulldog Francés", "Bulldog Inglés",
+      "Bullmastiff", "Cairn Terrier", "Cane Corso", "Caniche (Poodle)", "Carlino (Pug)", "Cavalier King Charles Spaniel", "Chihuahua",
+      "Chow Chow", "Cocker Spaniel Americano","Cocker Spaniel Inglés", "Collie de Pelo Largo", "Collie de Pelo Corto", "Coton de Tuléar",
+      "Dachshund (Teckel)", "Dálmata", "Doberman", "Dogo de Burdeos", "Dogo Argentino","Dogo Alemán (Gran Danés)", "Fila Brasileiro",
+      "Fox Terrier", "Galgo Español", "Galgo Inglés (Greyhound)", "Galgo Italiano", "Golden Retriever", "Gordon Setter", "Gran Pirineo",
+      "Grifón de Bruselas", "Husky Siberiano", "Jack Russell Terrier", "Keeshond", "Kerry Blue Terrier", "Komondor", "Labrador Retriever",
+      "Lakeland Terrier", "Leonberger", "Lhasa Apso","Malamute de Alaska", "Mastín Inglés", "Mastín Napolitano", "Mastín del Pirineo",
+      "Mastín Tibetano", "Münsterländer", "Papillón", "Pastor Alemán", "Pastor Australiano", "Pastor Belga","Pastor Blanco Suizo",
+      "Pastor de Anatolia", "Pastor de Beauce (Beauceron)", "Pastor de Brie", "Pastor de los Pirineos", "Pastor de Shetland (Sheltie)",
+      "Pekinés", "Pembroke Welsh Corgi","Pequeño Lebrel Italiano", "Perro de Agua Español", "Perro de Agua Portugués", "Perro Lobo Checo",
+      "Pinscher Miniatura", "Pitbull Terrier Americano", "Pointer Inglés", "Pomerania", "Presa Canario","Puli", "Rhodesian Ridgeback",
+      "Rottweiler", "Saluki", "Samoyedo", "San Bernardo", "Schnauzer (Gigante, Estándar, Miniatura)",
+      "Scottish Terrier (Scottie)", "Setter Irlandés","Shar Pei", "Shiba Inu", "Shih Tzu", "Skye Terrier", "Soft Coated Wheaten Terrier",
+      "Staffordshire Bull Terrier", "Teckel (Dachshund)", "Terranova", "Terrier Australiano","Terrier Brasileño", "Terrier Chileno",
+      "Terrier Escocés", "Terrier Irlandés", "Terrier Tibetano", "Vizsla (Braco Húngaro)", "Volpino Italiano",
+      "West Highland White Terrier (Westie)","Whippet", "Xoloitzcuintle", "Yorkshire Terrier", "Otro"
+    ],
     Gato: [
-  'Mestizo', 'Abisinio', 'American Shorthair', 'American Curl', 'Angora Turco', 'Azul Ruso','Balinés', 'Bengalí', 'Birmano', 'Bobtail Japonés', 'Bombay', 'Bosque de Noruega',
-  'British Shorthair', 'Burmés', 'Burmilla', 'Chartreux', 'Cornish Rex', 'Cymric', 'Devon Rex','Don Sphynx', 'Exótico de Pelo Corto', 'Fold Escocés (Scottish Fold)', 'Gato del Himalaya',
-  'Gato Siberiano', 'Habana Brown', 'Javanés', 'Khao Manee', 'Korat', 'LaPerm', 'Maine Coon','Manx', 'Mau Egipcio', 'Munchkin', 'Nebelung', 'Ocicat', 'Oriental de Pelo Corto',
-  'Oriental de Pelo Largo', 'Persa', 'Peterbald', 'Pixie-bob', 'Ragdoll', 'Ragamuffin','Savannah', 'Selkirk Rex', 'Siámes', 'Singapura', 'Snowshoe', 'Somalí', 'Sphynx (Esfinge)',
-  'Tonkinés', 'Toyger', 'Van Turco', 'Otro'
-],
+      "Mestizo", "Abisinio", "American Shorthair", "American Curl", "Angora Turco", "Azul Ruso","Balinés", "Bengalí", "Birmano",
+      "Bobtail Japonés", "Bombay", "Bosque de Noruega","British Shorthair", "Burmés", "Burmilla", "Chartreux", "Cornish Rex", "Cymric",
+      "Devon Rex","Don Sphynx", "Exótico de Pelo Corto", "Fold Escocés (Scottish Fold)", "Gato del Himalaya","Gato Siberiano",
+      "Habana Brown", "Javanés", "Khao Manee", "Korat", "LaPerm", "Maine Coon","Manx", "Mau Egipcio", "Munchkin", "Nebelung", "Ocicat",
+      "Oriental de Pelo Corto","Oriental de Pelo Largo", "Persa", "Peterbald", "Pixie-bob", "Ragdoll", "Ragamuffin","Savannah",
+      "Selkirk Rex", "Siámes", "Singapura", "Snowshoe", "Somalí", "Sphynx (Esfinge)","Tonkinés", "Toyger", "Van Turco", "Otro"
+    ],
     Roedor: [
-  'Hámster Sirio', 'Hámster Ruso', 'Hámster Roborovski', 'Hámster Chino', 'Cobaya (Conejillo de Indias)','Chinchilla', 'Rata Doméstica (Dumbo, Calva)', 'Ratón Doméstico', 'Jerbo de Mongolia', 'Lirón Careto',
-  'Degú', 'Perro de la Pradera', 'Ardilla Coreana', 'Ardilla de Richardson', 'Otro'
-],
+      "Hámster Sirio", "Hámster Ruso", "Hámster Roborovski", "Hámster Chino", "Cobaya (Conejillo de Indias)","Chinchilla",
+      "Rata Doméstica (Dumbo, Calva)", "Ratón Doméstico", "Jerbo de Mongolia", "Lirón Careto","Degú", "Perro de la Pradera",
+      "Ardilla Coreana", "Ardilla de Richardson", "Otro"
+    ],
     Ave: [
-  'Canario', 'Periquito Australiano', 'Ninfa (Carolina)', 'Agapornis (Inseparable)', 'Cacatúa','Diamante Mandarín', 'Diamante de Gould', 'Jilguero', 'Loro Gris de Cola Roja (Yaco)',
-  'Guacamayo', 'Amazona', 'Cotorra Argentina', 'Rosella', 'Forpus', 'Isabelita del Japón','Pionus', 'Kakariki', 'Perico de Bourke', 'Cotorra del Sol (Aratinga)', 'Eclecto', 'Otro'
-],
+      "Canario", "Periquito Australiano", "Ninfa (Carolina)", "Agapornis (Inseparable)", "Cacatúa","Diamante Mandarín",
+      "Diamante de Gould", "Jilguero", "Loro Gris de Cola Roja (Yaco)","Guacamayo", "Amazona", "Cotorra Argentina", "Rosella",
+      "Forpus", "Isabelita del Japón","Pionus", "Kakariki", "Perico de Bourke", "Cotorra del Sol (Aratinga)", "Eclecto", "Otro"
+    ],
   };
 
   const [formData, setFormData] = useState({
@@ -117,6 +120,7 @@ export default function PetRegister() {
     hairType: "",
     ageYears: "",
     ageMonths: "",
+    sex: "desconocido", // 'macho' | 'hembra' | 'desconocido'
     weight: "",
     hasChip: "no", // 'si' | 'no'
     chipType: "",
@@ -127,7 +131,7 @@ export default function PetRegister() {
     dewormingDate: "", // yyyy-mm-dd
     specialNeeds: "",
     canLiveWithDogs: "si", // 'si' | 'no'
-    aggressionLevel: "", // 1..5
+    aggressionLevel: "",
     specialDiet: "no", // 'si' | 'no'
     dietDetails: "",
     usage: "",
@@ -135,12 +139,14 @@ export default function PetRegister() {
 
   const [errors, setErrors] = useState({});
 
+  // Breeds dinámicos según especie
   const availableBreeds = useMemo(() => {
     return formData.species && BREEDS_BY_SPECIES[formData.species]
       ? BREEDS_BY_SPECIES[formData.species]
       : [];
   }, [formData.species]);
 
+  // Tipo de pelo según especie
   const hairOptions = useMemo(() => {
     if (!formData.species) return [];
     return HAIR_TYPE_BY_SPECIES[formData.species] || [];
@@ -176,24 +182,24 @@ export default function PetRegister() {
     const temp = {};
 
     if (!formData.name.trim()) temp.name = "El nombre es obligatorio";
-
     if (!formData.species.trim()) temp.species = "La especie es obligatoria";
-
     if (!formData.breed.trim()) temp.breed = "La raza es obligatoria";
 
-    if (!formData.hairType.trim())
-      temp.hairType = "El tipo de pelo es obligatorio";
-
+    // Edad: meses 1–11 y al menos uno de los dos > 0
     const years = Number(formData.ageYears) || 0;
     const months = Number(formData.ageMonths) || 0;
-
     if (
       years < 0 ||
       months < 1 ||
       months > 11 ||
       (years === 0 && months < 1)
     ) {
-      temp.age = "Ingresa una edad válida (meses de 1 a 11)";
+      temp.age = "Ingresa una edad válida (meses de 1 a 11; al menos meses o años).";
+    }
+
+    // Pelo (no aplica para Ave)
+    if (formData.species !== "Ave" && !formData.hairType.trim()) {
+      temp.hairType = "El tipo de pelo es obligatorio";
     }
 
     if (
@@ -233,10 +239,24 @@ export default function PetRegister() {
     e.preventDefault();
     if (!validate()) return;
 
-    // Aquí puedes integrar tu llamado a API
     alert("Mascota registrada con éxito");
-    navigate("/public/Index");
+    navigate("/"); // Ajusta la ruta a tu Index.jsx
   };
+
+  // Componente helper para encabezado de sección
+  const SectionHeader = ({ title, subtitle }) => (
+    <Box sx={{ mb: 2 }}>
+      <Typography variant="h6" fontWeight={700} color="#4e342e">
+        {title}
+      </Typography>
+      {subtitle && (
+        <Typography variant="body2" color="text.secondary">
+          {subtitle}
+        </Typography>
+      )}
+      <Divider sx={{ mt: 1, mb: 2, borderColor: "rgba(78,52,46,0.2)" }} />
+    </Box>
+  );
 
   return (
     <Box
@@ -252,11 +272,11 @@ export default function PetRegister() {
     >
       <Box sx={{ flex: "0 0 auto", p: { xs: 2, md: 4 } }}>
         <Paper
-          elevation={1}
+          elevation={2}
           sx={{
-            p: 4,
+            p: { xs: 2, md: 4 },
             borderRadius: 3,
-            background: "rgba(255,255,255,0.7)",
+            background: "rgba(255,255,255,0.8)",
             color: "#4e342e",
           }}
         >
@@ -276,7 +296,7 @@ export default function PetRegister() {
               >
                 Volver
               </Button>
-              <Pets sx={{ fontSize: 60, mx: 2 }} />
+              <Pets sx={{ fontSize: 56, mx: 2 }} />
               <Typography variant="h4" fontWeight={700} color="#4e342e">
                 Registro de Mascota
               </Typography>
@@ -291,11 +311,20 @@ export default function PetRegister() {
             onSubmit={handleSubmit}
             noValidate
             autoComplete="off"
-            sx={{ background: "rgba(255,255,255,0.5)", p: 3, borderRadius: 3 }}
+            sx={{
+              background: "rgba(255,255,255,0.6)",
+              p: { xs: 2, md: 3 },
+              borderRadius: 3,
+            }}
           >
+            {/* Sección: Información General */}
+            <SectionHeader
+              title="Información General"
+              subtitle="Datos básicos de identificación"
+            />
             <Grid container spacing={3}>
               {/* Nombre */}
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
                   required
@@ -310,7 +339,7 @@ export default function PetRegister() {
               </Grid>
 
               {/* Especie */}
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} md={6}>
                 <FormControl fullWidth required error={!!errors.species}>
                   <InputLabel id="species-label">Especie</InputLabel>
                   <Select
@@ -333,8 +362,8 @@ export default function PetRegister() {
                 </FormControl>
               </Grid>
 
-              {/* Raza (combo dependiente) */}
-              <Grid item xs={12} sm={6}>
+              {/* Raza */}
+              <Grid item xs={12} md={6}>
                 <FormControl
                   fullWidth
                   required
@@ -363,7 +392,7 @@ export default function PetRegister() {
               </Grid>
 
               {/* Tipo de pelo */}
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} md={6}>
                 <FormControl fullWidth required error={!!errors.hairType}>
                   <InputLabel id="hairType-label">Tipo de pelo</InputLabel>
                   <Select
@@ -387,8 +416,8 @@ export default function PetRegister() {
                 </FormControl>
               </Grid>
 
-              {/* Edad */}
-              <Grid item xs={12} sm={6}>
+              {/* Edad (años y meses) */}
+              <Grid item xs={12} md={6}>
                 <Box display="flex" alignItems="center" gap={2}>
                   <TextField
                     fullWidth
@@ -427,10 +456,25 @@ export default function PetRegister() {
                 )}
               </Grid>
 
-
+              {/* Sexo */}
+              <Grid item xs={12} md={6}>
+                <FormControl component="fieldset" required>
+                  <FormLabel component="legend">Sexo</FormLabel>
+                  <RadioGroup
+                    row
+                    name="sex"
+                    value={formData.sex}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel value="macho" control={<Radio />} label="Macho" />
+                    <FormControlLabel value="hembra" control={<Radio />} label="Hembra" />
+                    <FormControlLabel value="desconocido" control={<Radio />} label="Desconocido" />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
 
               {/* Peso */}
-              <Grid item xs={12} sm={3}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
                   id="weight"
@@ -452,7 +496,7 @@ export default function PetRegister() {
               </Grid>
 
               {/* ¿Tiene chip? */}
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} md={6}>
                 <FormControl>
                   <FormLabel id="hasChip-label">¿Tiene chip?</FormLabel>
                   <RadioGroup
@@ -462,16 +506,8 @@ export default function PetRegister() {
                     value={formData.hasChip}
                     onChange={handleChange}
                   >
-                    <FormControlLabel
-                      value="si"
-                      control={<Radio />}
-                      label="Sí"
-                    />
-                    <FormControlLabel
-                      value="no"
-                      control={<Radio />}
-                      label="No"
-                    />
+                    <FormControlLabel value="si" control={<Radio />} label="Sí" />
+                    <FormControlLabel value="no" control={<Radio />} label="No" />
                   </RadioGroup>
                 </FormControl>
               </Grid>
@@ -479,7 +515,7 @@ export default function PetRegister() {
               {/* Campos de chip condicionales */}
               {formData.hasChip === "si" && (
                 <>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} md={6}>
                     <FormControl fullWidth required error={!!errors.chipType}>
                       <InputLabel id="chipType-label">Tipo de chip</InputLabel>
                       <Select
@@ -501,7 +537,7 @@ export default function PetRegister() {
                       </Typography>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} md={6}>
                     <TextField
                       fullWidth
                       required
@@ -516,224 +552,220 @@ export default function PetRegister() {
                   </Grid>
                 </>
               )}
+            </Grid>
 
-              {/* Vacunas */}
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  id="vaccinationRecord"
-                  name="vaccinationRecord"
-                  label="Cuadro de vacunación (resumen)"
-                  multiline
-                  minRows={3}
-                  value={formData.vaccinationRecord}
-                  onChange={handleChange}
-                  placeholder="Ej.: Rabia: 2024-10-01; Parvo: 2025-01-15"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  id="lastVaccinationDate"
-                  name="lastVaccinationDate"
-                  label="Fecha de última vacunación"
-                  type="date"
-                  value={formData.lastVaccinationDate}
-                  onChange={handleChange}
-                  InputLabelProps={{ shrink: true }}
-                />
-              </Grid>
-
-              {/* Esterilizado + Desparasitación */}
-              <Grid item xs={12} sm={6}>
-                <FormControl>
-                  <FormLabel id="sterilized-label">¿Esterilizado?</FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="sterilized-label"
-                    name="sterilized"
-                    value={formData.sterilized}
-                    onChange={handleChange}
-                  >
-                    <FormControlLabel
-                      value="si"
-                      control={<Radio />}
-                      label="Sí"
-                    />
-                    <FormControlLabel
-                      value="no"
-                      control={<Radio />}
-                      label="No"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  id="dewormingDate"
-                  name="dewormingDate"
-                  label="Fecha de desparasitación"
-                  type="date"
-                  value={formData.dewormingDate}
-                  onChange={handleChange}
-                  InputLabelProps={{ shrink: true }}
-                />
-              </Grid>
-
-              {/* Necesidades especiales */}
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  id="specialNeeds"
-                  name="specialNeeds"
-                  label="Necesidades especiales"
-                  multiline
-                  minRows={2}
-                  value={formData.specialNeeds}
-                  onChange={handleChange}
-                />
-              </Grid>
-
-              {/* Convivir con otros perros */}
-              <Grid item xs={12} sm={6}>
-                <FormControl>
-                  <FormLabel id="canLiveWithDogs-label">
-                    ¿Convive con otros perros?
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="canLiveWithDogs-label"
-                    name="canLiveWithDogs"
-                    value={formData.canLiveWithDogs}
-                    onChange={handleChange}
-                  >
-                    <FormControlLabel
-                      value="si"
-                      control={<Radio />}
-                      label="Sí"
-                    />
-                    <FormControlLabel
-                      value="no"
-                      control={<Radio />}
-                      label="No"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-
-              {/* Nivel de agresividad */}
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth error={!!errors.aggressionLevel}>
-                  <InputLabel id="aggressionLevel-label">
-                    Nivel de agresividad (1–5)
-                  </InputLabel>
-                  <Select
-                    labelId="aggressionLevel-label"
-                    id="aggressionLevel"
-                    name="aggressionLevel"
-                    label="Nivel de agresividad (1–5)"
-                    value={formData.aggressionLevel}
-                    onChange={handleChange}
-                  >
-                    {[1, 2, 3, 4, 5].map((n) => (
-                      <MenuItem key={n} value={String(n)}>
-                        {n}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <Typography variant="caption" color="error.main">
-                    {errors.aggressionLevel}
-                  </Typography>
-                </FormControl>
-              </Grid>
-
-              {/* Alimentación especial */}
-              <Grid item xs={12} sm={6}>
-                <FormControl>
-                  <FormLabel id="specialDiet-label">
-                    ¿Alimentación especial?
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="specialDiet-label"
-                    name="specialDiet"
-                    value={formData.specialDiet}
-                    onChange={handleChange}
-                  >
-                    <FormControlLabel
-                      value="si"
-                      control={<Radio />}
-                      label="Sí"
-                    />
-                    <FormControlLabel
-                      value="no"
-                      control={<Radio />}
-                      label="No"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-              {formData.specialDiet === "si" && (
-                <Grid item xs={12} sm={6}>
+            {/* Sección: Información Médica */}
+            <Box mt={4}>
+              <SectionHeader
+                title="Información Médica"
+                subtitle="Historial y necesidades médicas"
+              />
+              <Grid container spacing={3}>
+                {/* Cuadro de vacunación */}
+                <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    required
-                    id="dietDetails"
-                    name="dietDetails"
-                    label="Detalle de la alimentación"
+                    id="vaccinationRecord"
+                    name="vaccinationRecord"
+                    label="Cuadro de vacunación (resumen)"
                     multiline
-                    minRows={2}
-                    value={formData.dietDetails}
+                    minRows={3}
+                    value={formData.vaccinationRecord}
                     onChange={handleChange}
-                    error={!!errors.dietDetails}
-                    helperText={errors.dietDetails}
+                    placeholder="Ej.: Rabia: 2024-10-01; Parvo: 2025-01-15"
                   />
                 </Grid>
-              )}
-
-              {/* Uso */}
-              <Grid item xs={12}>
-                <FormControl fullWidth required error={!!errors.usage}>
-                  <InputLabel id="usage-label">Uso</InputLabel>
-                  <Select
-                    labelId="usage-label"
-                    id="usage"
-                    name="usage"
-                    label="Uso"
-                    value={formData.usage}
+                {/* Última vacunación */}
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    id="lastVaccinationDate"
+                    name="lastVaccinationDate"
+                    label="Fecha de última vacunación"
+                    type="date"
+                    value={formData.lastVaccinationDate}
                     onChange={handleChange}
-                  >
-                    {USOS.map((u) => (
-                      <MenuItem key={u} value={u}>
-                        {u}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <Typography variant="caption" color="error.main">
-                    {errors.usage}
-                  </Typography>
-                </FormControl>
-              </Grid>
+                    InputLabelProps={{ shrink: true }}
+                  />
+                </Grid>
 
-              {/* Submit */}
-              <Grid item xs={12}>
-                <Tooltip title="Guarda la información de la mascota">
-                  <span>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      startIcon={<Pets />}
-                      sx={{ mt: 2 }}
+                {/* Esterilizado */}
+                <Grid item xs={12} md={6}>
+                  <FormControl>
+                    <FormLabel id="sterilized-label">¿Esterilizado?</FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="sterilized-label"
+                      name="sterilized"
+                      value={formData.sterilized}
+                      onChange={handleChange}
                     >
-                      Registrar Mascota
-                    </Button>
-                  </span>
-                </Tooltip>
+                      <FormControlLabel value="si" control={<Radio />} label="Sí" />
+                      <FormControlLabel value="no" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+
+                {/* Desparasitación */}
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    id="dewormingDate"
+                    name="dewormingDate"
+                    label="Fecha de desparasitación"
+                    type="date"
+                    value={formData.dewormingDate}
+                    onChange={handleChange}
+                    InputLabelProps={{ shrink: true }}
+                  />
+                </Grid>
+
+                {/* Necesidades especiales */}
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="specialNeeds"
+                    name="specialNeeds"
+                    label="Necesidades especiales"
+                    multiline
+                    minRows={2}
+                    value={formData.specialNeeds}
+                    onChange={handleChange}
+                  />
+                </Grid>
+
+                {/* Alimentación especial */}
+                <Grid item xs={12} md={6}>
+                  <FormControl>
+                    <FormLabel id="specialDiet-label">¿Alimentación especial?</FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="specialDiet-label"
+                      name="specialDiet"
+                      value={formData.specialDiet}
+                      onChange={handleChange}
+                    >
+                      <FormControlLabel value="si" control={<Radio />} label="Sí" />
+                      <FormControlLabel value="no" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+
+                {formData.specialDiet === "si" && (
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      fullWidth
+                      required
+                      id="dietDetails"
+                      name="dietDetails"
+                      label="Detalle de la alimentación"
+                      multiline
+                      minRows={2}
+                      value={formData.dietDetails}
+                      onChange={handleChange}
+                      error={!!errors.dietDetails}
+                      helperText={errors.dietDetails}
+                    />
+                  </Grid>
+                )}
               </Grid>
-            </Grid>
+            </Box>
+
+            {/* Sección: Comportamiento */}
+            <Box mt={4}>
+              <SectionHeader
+                title="Comportamiento"
+                subtitle="Convivencia y finalidad del animal"
+              />
+              <Grid container spacing={3}>
+                {/* Convivir con otros perros */}
+                <Grid item xs={12} md={6}>
+                  <FormControl>
+                    <FormLabel id="canLiveWithDogs-label">
+                      ¿Convive con otros perros?
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="canLiveWithDogs-label"
+                      name="canLiveWithDogs"
+                      value={formData.canLiveWithDogs}
+                      onChange={handleChange}
+                    >
+                      <FormControlLabel value="si" control={<Radio />} label="Sí" />
+                      <FormControlLabel value="no" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+
+                {/* Nivel de agresividad */}
+                <Grid item xs={12} md={6}>
+                  <FormControl fullWidth error={!!errors.aggressionLevel}>
+                    <InputLabel id="aggressionLevel-label">
+                      Nivel de agresividad (1–5)
+                    </InputLabel>
+                    <Select
+                      labelId="aggressionLevel-label"
+                      id="aggressionLevel"
+                      name="aggressionLevel"
+                      label="Nivel de agresividad (1–5)"
+                      value={formData.aggressionLevel}
+                      onChange={handleChange}
+                    >
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <MenuItem key={n} value={String(n)}>
+                          {n}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <Typography variant="caption" color="error.main">
+                      {errors.aggressionLevel}
+                    </Typography>
+                  </FormControl>
+                </Grid>
+
+                {/* Uso */}
+                <Grid item xs={12}>
+                  <FormControl fullWidth required error={!!errors.usage}>
+                    <InputLabel id="usage-label">Uso</InputLabel>
+                    <Select
+                      labelId="usage-label"
+                      id="usage"
+                      name="usage"
+                      label="Uso"
+                      value={formData.usage}
+                      onChange={handleChange}
+                    >
+                      {USOS.map((u) => (
+                        <MenuItem key={u} value={u}>
+                          {u}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <Typography variant="caption" color="error.main">
+                      {errors.usage}
+                    </Typography>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </Box>
+
+            {/* Submit */}
+            <Box mt={4}>
+              <Tooltip title="Guarda la información de la mascota">
+                <span>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    startIcon={<Pets />}
+                    sx={{ mt: 1 }}
+                  >
+                    Registrar Mascota
+                  </Button>
+                </span>
+              </Tooltip>
+            </Box>
           </Box>
         </Paper>
       </Box>
