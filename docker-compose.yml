@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   db:
     image: mysql:8.0
@@ -16,14 +18,41 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpwd"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   web:
     image: nginx:alpine
     container_name: pawhospital_nginx
     ports:
-      - "8080:80"  # Exponemos el puerto 80 del contenedor al puerto 8080 del host
+      - "8080:80"          # Frontend React ya construido
     volumes:
-      - ./build:/usr/share/nginx/html  # Montamos la carpeta build de React en Nginx
+      - ./build:/usr/share/nginx/html
+
+  tomcat:
+    image: tomcat:10.1-jdk17
+    container_name: pawhospital_tomcat
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8081:8080"        # Tomcat disponible en http://localhost:8081
+    environment:
+      TZ: America/Mexico_City
+      # Variables que tu app Java puede leer (opcional)
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: pawhospital
+      DB_USER: app
+      DB_PASS: apppwd
+    volumes:
+      - ./webapps:/usr/local/tomcat/webapps
+      - ./tomcat/lib/mysql-connector-j-8.4.0.jar:/usr/local/tomcat/lib/mysql-connector-j-8.4.0.jar:ro
+    restart: always
 
 volumes:
   db_data:
+
