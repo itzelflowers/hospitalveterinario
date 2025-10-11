@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/public/Register";
 import PetRegister from "./pages/public/PetRegister";
-import Index from "./pages/public";
+import Index from "./pages/public/index";
 
 function App() {
     return (
@@ -13,6 +13,7 @@ function App() {
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/public/Register" element={<Register/>}/>
             <Route path="/public/PetRegister" element={<PetRegister/>}/>            
+            <Route path="/public/index" element={<Index/>}/>
         </Routes>
     );
 }

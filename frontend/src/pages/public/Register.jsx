@@ -95,7 +95,7 @@ export default function Register() {
   };
 
   return (
-    <Box minHeight="100vh" width="100vw" sx={{ background: 'linear-gradient(135deg, #C19A83 0%, #fff 100%)', display: 'flex', flexDirection: 'column' }}>
+    <Box minHeight="100vh" width="100vw" sx={{ background: 'linear-gradient(135deg, #C19A83 0%, #fff 100%)', display: 'flex', flexDirection: 'column',overflowY: 'auto', scrollBehavior: 'smooth' }}>
       <Box sx={{ flex: '0 0 auto', p: { xs: 1, md: 2 } }}>
         <Paper elevation={1} sx={{ p: 3, borderRadius: 3, background: 'rgba(255,255,255,0.7)', color: '#4e342e' }}>
           <Box display="flex" alignItems="center" justifyContent="space-between">
