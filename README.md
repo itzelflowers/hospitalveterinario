@@ -1,17 +1,17 @@
-# 🐾 Hospital Veterinario – Proyecto Web
+# Hospital Veterinario – Proyecto Web
 
 Este proyecto es una aplicación web para la gestión de un **hospital veterinario**, con base de datos en **MySQL**, levantada con **Docker Compose**.
 
 ---
 
-## 🚀 Requisitos previos
+## Requisitos previos
 - [Docker](https://docs.docker.com/get-docker/) y [Docker Compose](https://docs.docker.com/compose/) instalados  
 - Git instalado  
 - (Opcional) PHP instalado localmente (`brew install php` en macOS) si quieres correr el `test_connection.php` fuera de Docker.
 
 ---
 
-## 📦 Configuración inicial
+## Configuración inicial
 
 1. Clonar el repo:
    ```bash
