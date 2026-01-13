@@ -58,6 +58,38 @@ export default function Register() {
     }
   }, [formData.password, formData.passwordConfirm]);
 
+  // Carousel sections and state (moved out of render to avoid using hooks inside nested functions)
+  const sections = [
+    {
+      key: 'about',
+      title: t('carousel.aboutTitle'),
+      content: t('carousel.aboutContent'),
+    },
+    {
+      key: 'mission',
+      title: t('carousel.missionTitle'),
+      content: t('carousel.missionContent'),
+    },
+    {
+      key: 'vision',
+      title: t('carousel.visionTitle'),
+      content: t('carousel.visionContent', ''),
+    },
+    {
+      key: 'services',
+      title: t('carousel.servicesTitle'),
+      content: t('carousel.servicesContent'),
+    },
+  ];
+
+  const [current, setCurrent] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrent((c) => (c + 1) % sections.length);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [current, sections.length]);
+
   const validate = () => {
     let tempErrors = {};
     if (!formData.name.trim()) {
@@ -148,74 +180,41 @@ export default function Register() {
           </Box>
           <Divider sx={{ my: 2, bgcolor: 'rgba(255,255,255,0.3)' }} />
           {/* Carrusel de secciones */}
-          {(() => {
-            const sections = [
-              {
-                key: 'about',
-                title: t('carousel.aboutTitle'),
-                content: t('carousel.aboutContent'),
-              },
-              {
-                key: 'mission',
-                title: t('carousel.missionTitle'),
-                content: t('carousel.missionContent'),
-              },
-              {
-                key: 'vision',
-                title: t('carousel.visionTitle'),
-                content: t('carousel.visionContent', ''),
-              },
-              {
-                key: 'services',
-                title: t('carousel.servicesTitle'),
-                content: t('carousel.servicesContent'),
-              },
-            ];
-            const [current, setCurrent] = React.useState(0);
-            React.useEffect(() => {
-              const timer = setTimeout(() => {
-                setCurrent((current + 1) % sections.length);
-              }, 5000);
-              return () => clearTimeout(timer);
-            }, [current, sections.length]);
-            return (
-              <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" sx={{ minHeight: 120, position: 'relative'}}>
-                <Box display="flex" alignItems="center" justifyContent="center" width="100%" position="relative" >
-                  <IconButton onClick={() => setCurrent((current - 1 + sections.length) % sections.length)} sx={{ position: 'absolute', left: 0, opacity:.4, '&:hover':{opacity:1}   }}>
-                    <ArrowBackIos />
-                  </IconButton>
-                  <Box sx={{ textAlign: 'center', width: '100%' }}>
-                    <Typography variant="h6" fontWeight={600} gutterBottom sx={{ color: '#b71c1c' }}>
-                      {sections[current].title}
-                    </Typography>
-                    <Typography variant="body1" sx={{ color: '#4e342e', paddingLeft: '20px', paddingRight: '50px' }}>
-                      {sections[current].content}
-                    </Typography>
-                  </Box>
-                  <IconButton onClick={() => setCurrent((current + 1) % sections.length)} sx={{ position: 'absolute', right: 0, opacity:.4, '&:hover':{opacity:1}  }}>
-                    <ArrowForwardIos />
-                  </IconButton>
-                </Box>
-                <Box display="flex" justifyContent="center" alignItems="center" mt={2} gap={1}>
-                  {sections.map((_, idx) => (
-                    <Box
-                      key={idx}
-                      sx={{
-                        width: 12,
-                        height: 12,
-                        borderRadius: '50%',
-                        backgroundColor: idx === current ? '#b71c1c' : '#c2b09e',
-                        border: '2px solid #b71c1c',
-                        transition: 'background 0.3s',
-                        cursor: 'pointer',
-                      }}
-                      onClick={() => setCurrent(idx)}
-                    />
-                  ))}
-                </Box>
+          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" sx={{ minHeight: 120, position: 'relative'}}>
+            <Box display="flex" alignItems="center" justifyContent="center" width="100%" position="relative" >
+              <IconButton onClick={() => setCurrent((current - 1 + sections.length) % sections.length)} sx={{ position: 'absolute', left: 0, opacity:.4, '&:hover':{opacity:1}   }}>
+                <ArrowBackIos />
+              </IconButton>
+              <Box sx={{ textAlign: 'center', width: '100%' }}>
+                <Typography variant="h6" fontWeight={600} gutterBottom sx={{ color: '#b71c1c' }}>
+                  {sections[current].title}
+                </Typography>
+                <Typography variant="body1" sx={{ color: '#4e342e', paddingLeft: '20px', paddingRight: '50px' }}>
+                  {sections[current].content}
+                </Typography>
               </Box>
-            );
-          })()}
+              <IconButton onClick={() => setCurrent((current + 1) % sections.length)} sx={{ position: 'absolute', right: 0, opacity:.4, '&:hover':{opacity:1}  }}>
+                <ArrowForwardIos />
+              </IconButton>
+            </Box>
+            <Box display="flex" justifyContent="center" alignItems="center" mt={2} gap={1}>
+              {sections.map((_, idx) => (
+                <Box
+                  key={idx}
+                  sx={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: '50%',
+                    backgroundColor: idx === current ? '#b71c1c' : '#c2b09e',
+                    border: '2px solid #b71c1c',
+                    transition: 'background 0.3s',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => setCurrent(idx)}
+                />
+              ))}
+            </Box>
+          </Box>
           <Divider sx={{ my: 2, bgcolor: 'rgba(255,255,255,0.3)' }} />  
           <Grid container spacing={2} 
             alignItems="flex-start" justifyContent="center">
@@ -401,8 +400,12 @@ export default function Register() {
               <img src="https://img.freepik.com/foto-gratis/cerca-veterinario-cuidando-mascota_23-2149143882.jpg" alt="Hospital Logo" style={{ width: '100%', maxWidth: '100%', display: 'block', margin: '0 auto' }} />
             </Grid>
           </Grid>
+        </Paper>
         <Paper elevation={1} sx={{ p: 3, borderRadius: 3, background: 'rgba(255,255,255,0.7)', color: '#4e342e' }}>
           
         </Paper>
       </Box>
+      </Box>
   );
+
+}
