@@ -134,6 +134,7 @@ function Login() {
           </svg>
         </Grid>
       </Grid>
+{/*       
       <Box elevation={3} sx={{ p: 4, width: '100%', maxWidth: 400 }}>
         <form onSubmit={handleLogin}>
           <TextField
@@ -210,7 +211,7 @@ function Login() {
         <Typography variant="caption" display="block" textAlign="center" mt={0.5}>
           v0.0.1
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   )
 }

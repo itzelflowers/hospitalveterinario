@@ -1,11 +1,11 @@
 import { Box, TextField, Button, Typography, Grid, InputAdornment, Paper, Divider, IconButton } from '@mui/material';
-import { AlternateEmail, Pets, LanguageOutlined, ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { AlternateEmail, Pets, LanguageOutlined, ArrowBackIos, ArrowForwardIos, Visibility, VisibilityOff } from '@mui/icons-material';
 import {useNavigate} from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
-import zIndex from '@mui/material/styles/zIndex';
+// import zIndex not needed
 export default function Register() {
   const initialState = {
     name: '',
@@ -32,6 +32,18 @@ export default function Register() {
   const [sugerenciaPassword, setSugerenciaPassword] = useState('');
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
+  // Si ya existe una sesión activa, redirigir a PetRegister
+  useEffect(() => {
+    try {
+      const session = localStorage.getItem('userSession');
+      if (session) {
+        navigate('/public/PetRegister');
+      }
+    } catch (e) {
+      // ignore
+    }
+  }, [navigate]);
 
   useEffect(() => {
     // Validar confirmación de contraseña cada vez que cambian los campos
@@ -88,6 +100,19 @@ export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
+      // Crear una sesión sencilla y guardarla en localStorage
+      const sessionData = {
+        user: {
+          name: formData.name,
+          email: formData.email,
+        },
+        createdAt: Date.now(),
+      };
+      try {
+        localStorage.setItem('userSession', JSON.stringify(sessionData));
+      } catch (e) {
+        console.warn('No se pudo guardar la sesión en localStorage', e);
+      }
       alert(t('register.success', '¡Dueño registrado con éxito!'));
       setFormData(initialState);
       navigate('/public/PetRegister');
@@ -260,11 +285,24 @@ export default function Register() {
                       id="password"
                       name="password"
                       label={t('register.password')}
-                      type="password"
+                      type={formData.showPassword ? 'text' : 'password'}
                       value={formData.password}
                       onChange={handleChange}
                       error={!!errors.password}
                       helperText={errors.password}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label={formData.showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                              onClick={() => setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }))}
+                              edge="end"
+                            >
+                              {formData.showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                     <Button
                       variant="outlined"
@@ -276,11 +314,11 @@ export default function Register() {
                       {t('register.suggestPassword')}
                     </Button>
                     
-                    {sugerenciaPassword && (
+                    {/* {sugerenciaPassword && (
                       <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
                         Sugerencia: <b>{sugerenciaPassword}</b>
                       </Typography>
-                    )}
+                    )} */}
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -289,13 +327,26 @@ export default function Register() {
                       id="passwordConfirm"
                       name="passwordConfirm"
                       label={t('register.passwordConfirm')}
-                      type="password"
+                      type={formData.showPassword ? 'text' : 'password'}
                       value={formData.passwordConfirm}
                       onChange={handleChange}
                       error={!!errors.passwordConfirm}
                       helperText={errors.passwordConfirm}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label={formData.showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                              onClick={() => setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }))}
+                              edge="end"
+                            >
+                              {formData.showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
-                    { sugerenciaPassword && (
+                    {/* { sugerenciaPassword && (
                         <Button
                           variant="outlined"
                           color="success"
@@ -303,7 +354,7 @@ export default function Register() {
                           sx={{ mt: 1 }}>
                             limpiar sugerencia
                           </Button>
-                    )}
+                    )} */}
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <PhoneInput
@@ -312,7 +363,7 @@ export default function Register() {
                       id="phone"
                       value={formData.phone}
                       sx={{ zIndex:9999999}}
-                      onChange={() => handleChange}
+                      onChange={(value) => setFormData(prev => ({ ...prev, phone: value }))}
                     />
                     
                   </Grid>
@@ -347,14 +398,11 @@ export default function Register() {
             </Grid>
             <Grid item xs={12} md={1}></Grid>
             <Grid item xs={12} md={6}>
-              <img src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e" alt="Hospital Logo" style={{ width: '100%', maxWidth: '100%', display: 'block', margin: '0 auto' }} />
+              <img src="https://img.freepik.com/foto-gratis/cerca-veterinario-cuidando-mascota_23-2149143882.jpg" alt="Hospital Logo" style={{ width: '100%', maxWidth: '100%', display: 'block', margin: '0 auto' }} />
             </Grid>
           </Grid>
-        </Paper>
         <Paper elevation={1} sx={{ p: 3, borderRadius: 3, background: 'rgba(255,255,255,0.7)', color: '#4e342e' }}>
           
         </Paper>
       </Box>
-    </Box>
   );
-}

@@ -4,17 +4,20 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/public/Register";
 import PetRegister from "./pages/public/PetRegister";
-import Index from "./pages/public/index";
+import Index from "./pages/public";
+import SiteHeader from "./components/SiteHeader";
 
 function App() {
     return (
-        <Routes>
+      <>
+          <SiteHeader />
+          <Routes>
             <Route path="/" element={<Login/>} />
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/public/Register" element={<Register/>}/>
             <Route path="/public/PetRegister" element={<PetRegister/>}/>            
-            <Route path="/public/index" element={<Index/>}/>
         </Routes>
+        </>
     );
 }
 export default App;
