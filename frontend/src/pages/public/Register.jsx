@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Grid, Container } from '@mui/material';
 
+import {useNavigate} from 'react-router-dom';
+
 const initialState = {
   fullName: '',
   phone: '',
@@ -13,6 +15,7 @@ function Register() {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
 
+  const navigate = useNavigate();
   const validate = () => {
     let tempErrors = {};
     if (!formData.fullName.trim()) {
@@ -34,12 +37,15 @@ function Register() {
   };
 
   const handleSubmit = (event) => {
+    console.log("entra")
     event.preventDefault();
     if (validate()) {
       console.log('Datos del formulario listos para enviar:', formData);
       alert('¡Dueño registrado con éxito!');
       setFormData(initialState);
+        navigate('/public/PetRegister')
     }
+ 
   };
 
   return (
@@ -138,6 +144,7 @@ function Register() {
           
           <Grid item xs={12}>
             <Button
+
               type="submit"
               variant="contained"
               color="primary"
